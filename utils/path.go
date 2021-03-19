@@ -1,4 +1,5 @@
 // +build !windows
+
 package utils
 
 import "os"
