@@ -21,7 +21,13 @@ func getGitProjectRoot(directory []string) (string, error) {
 	}
 	dir := filepath.Join(directory...)
 	fullPath := absolute(filepath.Join(dir, ".git"))
-	if info, err := os.Stat(fullPath); !os.IsNotExist(err) {
+	info, err := os.Stat(fullPath)
+	_, pathErr := err.(*os.PathError)
+	if os.IsNotExist(err) || pathErr {
+		pop(&directory)
+		return getGitProjectRoot(directory)
+	} else {
+
 		if !info.IsDir() {
 			buff, err := ioutil.ReadFile(fullPath)
 			if err != nil {
@@ -36,8 +42,5 @@ func getGitProjectRoot(directory []string) (string, error) {
 			}
 		}
 		return filepath.Clean(fullPath), nil
-	} else {
-		pop(&directory)
-		return getGitProjectRoot(directory)
 	}
 }
