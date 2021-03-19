@@ -31,6 +31,7 @@ jobs:
           # only-new-issues: true
   test:
     needs: [golangci]
+    name: Test
     strategy:
       matrix:
         go-version: [1.15.x, 1.16.x]
@@ -68,4 +69,4 @@ jobs:
         run: go build -v ./...
 
       - name: Test
-        run: go test -v /... -cover
+        run: go test -v ./... -cover
