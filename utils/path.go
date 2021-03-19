@@ -1,7 +1,8 @@
+// +build !windows
 package utils
 
 import "os"
 
-func Absolute(path string) string {
+func absolute(path string) string {
 	return string(os.PathSeparator) + path
 }
