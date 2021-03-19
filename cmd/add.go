@@ -34,7 +34,7 @@ var addCmd = &cobra.Command{
 	Example: "ghooks add pre-commit npm run lint",
 	Args: func(cmd *cobra.Command, args []string) error {
 		if len(args) < 2 {
-			return errors.New("requieres at least two args")
+			return errors.New("requieres at least two arguments")
 		}
 		if utils.ValidateHook(args[0]) {
 			return nil
