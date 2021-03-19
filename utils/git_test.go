@@ -9,7 +9,7 @@ import (
 
 func TestGetGitProjectRoot(t *testing.T) {
 	_, currentFile, _, _ := runtime.Caller(0)
-	currentPath := filepath.Join("/", filepath.Dir(currentFile))
+	currentPath := filepath.Join(filepath.Dir(currentFile))
 	gitProjectRoot := filepath.Join(filepath.Dir(currentPath), ".git")
 
 	tests := []struct {

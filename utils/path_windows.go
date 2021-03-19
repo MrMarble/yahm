@@ -4,10 +4,15 @@ package utils
 
 import (
 	"path/filepath"
-	"runtime"
+	"strings"
 )
 
 func absolute(path string) string {
-	_, base, _, _ := runtime.Caller(0)
-	return filepath.VolumeName(base) + string(filepath.Separator) + path
+	volume := filepath.VolumeName(path)
+	pathList := strings.Split(path, string(filepath.Separator))
+	if strings.Contains(pathList[0], volume) {
+		pathList[0] = pathList[0][len(volume):]
+	}
+	volume = volume + string(filepath.Separator)
+	return filepath.Join(volume, filepath.Join(pathList...))
 }
