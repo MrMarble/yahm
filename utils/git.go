@@ -19,7 +19,6 @@ func getGitProjectRoot(directory []string) (string, error) {
 	if len(directory) < 2 {
 		return "", errors.New("no more paths to traverse")
 	}
-	pop(&directory)
 	dir := filepath.Join(directory...)
 	fullPath := absolute(filepath.Join(dir, ".git"))
 	if info, err := os.Stat(fullPath); !os.IsNotExist(err) {
@@ -38,6 +37,7 @@ func getGitProjectRoot(directory []string) (string, error) {
 		}
 		return filepath.Clean(fullPath), nil
 	} else {
+		pop(&directory)
 		return getGitProjectRoot(directory)
 	}
 }
