@@ -1,0 +1,109 @@
+name: Go
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "**.go"
+  pull_request:
+    branches:
+      - master
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Restore Go module cache
+        uses: actions/cache@v1
+        with:
+          path: ~/go/pkg/mod
+          key: ${{ runner.os }}-go-lint-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-lint-
+
+      - name: Setup Go
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.14
+
+      - name: Install tools
+        run: go get -u golang.org/x/tools/go/analysis/passes/shadow/cmd/shadow golang.org/x/lint/golint honnef.co/go/tools/cmd/staticcheck github.com/kisielk/errcheck github.com/securego/gosec/cmd/gosec
+
+      - name: Get Go dependencies
+        run: go get
+
+      - name: Run gofmt
+        if: always()
+        run: |
+          golintout="$(gofmt -s -l .)";
+          if [ -n "$golintout" ]; then
+            awk '{ print $0": format check failed" }' <<< $golintout
+            exit 1
+          fi
+        shell: bash
+
+      - name: Run go vet
+        if: always()
+        run: go vet
+
+      - name: Run go vet -vettool shadow
+        if: always()
+        run: go vet -vettool $(which shadow)
+
+      - name: Run golint
+        if: always()
+        run: golint -set_exit_status ./...
+
+      - name: Run staticcheck
+        if: always()
+        run: staticcheck ./...
+
+      - name: Run errcheck
+        if: always()
+        run: errcheck ./...
+
+      - name: Run gosec
+        if: always()
+        run: gosec -quiet -fmt=golint ./...
+  test:
+    strategy:
+      matrix:
+        go-version: [1.15.x, 1.16.x]
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Install Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.go-version }}
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - uses: actions/cache@v2
+        with:
+          # In order:
+          # * Module download cache
+          # * Build cache (Linux)
+          # * Build cache (Mac)
+          # * Build cache (Windows)
+          path: |
+            ~/go/pkg/mod
+            ~/.cache/go-build
+            ~/Library/Caches/go-build
+            %LocalAppData%\go-build
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+
+      - name: Get Go dependencies
+        run: go get
+
+      - name: Build
+        run: go build -v ./...
+
+      - name: Test
+        run: go test -v /... -cover
