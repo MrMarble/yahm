@@ -9,6 +9,7 @@ import (
 	"strings"
 )
 
+// GetGitProjectRoot returns de closest .git directory
 func GetGitProjectRoot(directory string) (string, error) {
 	start := filepath.Clean(directory)
 	return getGitProjectRoot(strings.Split(start, string(filepath.Separator)))
