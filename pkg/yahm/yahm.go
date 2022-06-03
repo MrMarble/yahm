@@ -11,10 +11,10 @@ import (
 type HookType string
 
 const (
-	PreCommit HookType = "pre-commit"
-	CommitMsg HookType = "commit-msg"
-	PrePush   HookType = "pre-push"
-	PreMergeCommit HookType = "pre-merge-commit"
+	PreCommit        HookType = "pre-commit"
+	CommitMsg        HookType = "commit-msg"
+	PrePush          HookType = "pre-push"
+	PreMergeCommit   HookType = "pre-merge-commit"
 	PrepareCommitMsg HookType = "prepare-commit-msg"
 	// TODO: add more hooks
 )
