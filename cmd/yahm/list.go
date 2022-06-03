@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/mrmarble/ghooks/pkg/config"
+	"github.com/mrmarble/yahm/pkg/config"
 )
 
 type listCmd struct{}

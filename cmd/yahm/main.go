@@ -23,7 +23,7 @@ var (
 func (v VersionFlag) Decode(ctx *kong.DecodeContext) error { return nil }
 func (v VersionFlag) IsBool() bool                         { return true }
 func (v VersionFlag) BeforeApply(app *kong.Kong) error {
-	fmt.Printf("ghooks has version %s built from %s on %s\n", version, commit, date)
+	fmt.Printf("yahm has version %s built from %s on %s\n", version, commit, date)
 	app.Exit(0)
 
 	return nil
@@ -35,12 +35,12 @@ func main() {
 		Config  string      `short:"c" type:"existingfile" help:"Path to config file." optional:""`
 		Version VersionFlag `name:"version" help:"Print version information and quit"`
 
-		Install installCmd `cmd:"install" help:"Install ghooks to your git hooks directory"`
+		Install installCmd `cmd:"install" help:"Install yahm to your git hooks directory"`
 		List    listCmd    `cmd:"list" help:"List all hooks and their actions"`
 	}
 
 	ctx := kong.Parse(&cli,
-		kong.Name("ghooks"),
+		kong.Name("yahm"),
 		kong.Description("A cli for managing git hooks"),
 		kong.UsageOnError())
 

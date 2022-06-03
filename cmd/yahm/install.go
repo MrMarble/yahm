@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/mrmarble/ghooks/pkg/config"
-	"github.com/mrmarble/ghooks/pkg/ghook"
-	"github.com/mrmarble/ghooks/pkg/git"
+	"github.com/mrmarble/yahm/pkg/config"
+	"github.com/mrmarble/yahm/pkg/git"
+	"github.com/mrmarble/yahm/pkg/yahm"
 )
 
 type installCmd struct{}
@@ -28,7 +28,7 @@ func (i *installCmd) Run(ctx *Context) error {
 			return err
 		}
 		defer f.Close()
-		err = ghook.WriteHook(f, hook)
+		err = yahm.WriteHook(f, hook)
 		if err != nil {
 			return err
 		}

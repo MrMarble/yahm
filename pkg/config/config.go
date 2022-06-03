@@ -3,19 +3,19 @@ package config
 import (
 	"io/ioutil"
 
-	"github.com/mrmarble/ghooks/pkg/ghook"
+	"github.com/mrmarble/yahm/pkg/yahm"
 	"gopkg.in/yaml.v2"
 )
 
-const configName = ".ghook"
+const configName = ".yahm"
 
 type Config struct {
-	Hooks map[ghook.HookType]*ghook.Hook `yaml:"hooks"`
+	Hooks map[yahm.HookType]*yahm.Hook `yaml:"hooks"`
 }
 
 // UnmarshalYAML implements the yaml.Unmarshaler interface
 func (c *Config) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	c.Hooks = make(map[ghook.HookType]*ghook.Hook)
+	c.Hooks = make(map[yahm.HookType]*yahm.Hook)
 	type plain Config
 	err := unmarshal((plain)(*c))
 	if err != nil {

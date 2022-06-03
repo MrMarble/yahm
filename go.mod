@@ -1,4 +1,4 @@
-module github.com/mrmarble/ghooks
+module github.com/mrmarble/yahm
 
 go 1.18
 

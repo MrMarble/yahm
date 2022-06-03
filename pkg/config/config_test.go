@@ -3,7 +3,7 @@ package config_test
 import (
 	"testing"
 
-	"github.com/mrmarble/ghooks/pkg/config"
+	"github.com/mrmarble/yahm/pkg/config"
 	"github.com/stretchr/testify/assert"
 	"gopkg.in/yaml.v3"
 )
