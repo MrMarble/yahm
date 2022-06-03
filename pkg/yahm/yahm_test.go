@@ -5,13 +5,13 @@ import (
 	"testing"
 
 	"github.com/mrmarble/yahm/pkg/yahm"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestNewHook(t *testing.T) {
 	h := yahm.NewHook(yahm.PreCommit)
 
-	assert.EqualValues(t, yahm.PreCommit, h.Type)
+	require.EqualValues(t, yahm.PreCommit, h.Type)
 }
 
 func TestAddAction(t *testing.T) {
@@ -19,7 +19,7 @@ func TestAddAction(t *testing.T) {
 
 	h.AddAction("test", "echo test")
 
-	assert.EqualValues(t, 1, len(h.Actions))
+	require.EqualValues(t, 1, len(h.Actions))
 }
 
 func TestWriteHook(t *testing.T) {
@@ -32,8 +32,8 @@ func TestWriteHook(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	assert.Greater(t, bf.Len(), 0)
-	assert.Contains(t, bf.String(), `# action_start
+	require.Greater(t, bf.Len(), 0)
+	require.Contains(t, bf.String(), `# action_start
 # Name: test
 echo test
 # action_end`)
@@ -53,9 +53,9 @@ echo test
 	if err != nil {
 		t.Fatal(err)
 	}
-	assert.NotNil(t, h)
-	assert.Equal(t, yahm.PreCommit, h.Type)
-	assert.Len(t, h.Actions, 1)
-	assert.Equal(t, "test", h.Actions[0].Name)
-	assert.Equal(t, "echo test", h.Actions[0].Cmd)
+	require.NotNil(t, h)
+	require.Equal(t, yahm.PreCommit, h.Type)
+	require.Len(t, h.Actions, 1)
+	require.Equal(t, "test", h.Actions[0].Name)
+	require.Equal(t, "echo test", h.Actions[0].Cmd)
 }

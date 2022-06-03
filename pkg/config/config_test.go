@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/mrmarble/yahm/pkg/config"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"gopkg.in/yaml.v3"
 )
 
@@ -24,11 +24,11 @@ func TestUnmarshalConfig(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	assert.NotNil(t, c)
-	assert.NotNil(t, c.Hooks)
-	assert.Len(t, c.Hooks, 2)
-	assert.NotNil(t, c.Hooks["pre-commit"])
-	assert.NotNil(t, c.Hooks["commit-msg"])
-	assert.Len(t, c.Hooks["pre-commit"].Actions, 1)
-	assert.Len(t, c.Hooks["commit-msg"].Actions, 1)
+	require.NotNil(t, c)
+	require.NotNil(t, c.Hooks)
+	require.Len(t, c.Hooks, 2)
+	require.NotNil(t, c.Hooks["pre-commit"])
+	require.NotNil(t, c.Hooks["commit-msg"])
+	require.Len(t, c.Hooks["pre-commit"].Actions, 1)
+	require.Len(t, c.Hooks["commit-msg"].Actions, 1)
 }

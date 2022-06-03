@@ -5,7 +5,7 @@ import (
 	"runtime"
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestGetGitProjectRoot(t *testing.T) {
@@ -29,7 +29,7 @@ func TestGetGitProjectRoot(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			assert.Equal(t, tt.want, got)
+			require.Equal(t, tt.want, got)
 		})
 	}
 }

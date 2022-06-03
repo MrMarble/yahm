@@ -1,7 +1,7 @@
 package config
 
 import (
-	"io/ioutil"
+	"os"
 
 	"github.com/mrmarble/yahm/pkg/yahm"
 	"gopkg.in/yaml.v2"
@@ -32,7 +32,7 @@ func Read(path string) (*Config, error) {
 	if path == "" {
 		return readFromDefault()
 	}
-	cfg, err := ioutil.ReadFile(path)
+	cfg, err := os.ReadFile(path)
 	if err != nil {
 		return nil, err
 	}
@@ -47,8 +47,8 @@ func Read(path string) (*Config, error) {
 }
 
 func readFromDefault() (*Config, error) {
-	// checks if wheter the config file is .yaml or .yml
-	if _, err := ioutil.ReadFile(configName + ".yaml"); err == nil {
+	// checks if whether the config file is .yaml or .yml
+	if _, err := os.ReadFile(configName + ".yaml"); err == nil {
 		return Read(configName + ".yaml")
 	}
 	return Read(configName + ".yml")
