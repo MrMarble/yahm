@@ -4,8 +4,12 @@
 <img src="assets/gopher.png" height="120" alt="gopher with moustache">
 </a>
 
-## YAHM
+### YAHM
 Yet Another Hook Manager
+
+[![golangci-lint](https://github.com/MrMarble/yahm/actions/workflows/golangci.yml/badge.svg)](https://github.com/MrMarble/yahm/actions/workflows/golangci.yml)
+[![Go Report Card](https://goreportcard.com/badge/github.com/mrmarble/yahm)](https://goreportcard.com/report/github.com/mrmarble/yahm)
+![Lines of code](https://img.shields.io/tokei/lines/github/mrmarble/yahm)
 </div>
 
 ---
