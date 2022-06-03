@@ -1,0 +1,9 @@
+hooks:
+  pre-commit:
+    actions:
+      - name: format
+        cmd: gofumpt -w -extra ./..
+      - name: lint
+        cmd: golangci-lint run ./...
+      - name: test
+        cmd: go test ./...
