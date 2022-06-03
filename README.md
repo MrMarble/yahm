@@ -1,10 +1,11 @@
 
 <div align="center">
-    <a href="https://gopherize.me">
-        <img src="assets/gopher.png" height="120">
-    </a>
-    <h1>YAHM</h1>
-    Yet Another Hook Manager
+<a href="https://gopherize.me">
+<img src="assets/gopher.png" height="120" alt="gopher with moustache">
+</a>
+
+## YAHM
+Yet Another Hook Manager
 </div>
 
 ---
